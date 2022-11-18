@@ -24,13 +24,11 @@ class ServerConnectionSocket extends ConnectionSocket {
   Future<String?> create() async {
     try {
       final ip = await NetworkInfo().getWifiIP();
-      print(ip);
       if (ip != null) {
         server = await ServerSocket.bind(
           ip,
           NetworkConstants.port,
         );
-        print("Server started at ${server.address.address}");
       } else {
         int addressTry = 1;
         do {
@@ -38,14 +36,12 @@ class ServerConnectionSocket extends ConnectionSocket {
             final ip = NetworkConstants.hotspotIpTemplate.replaceAll(
                 NetworkConstants.hotspotIpTemplateSymbol,
                 addressTry.toString());
-            print(ip);
             server = await ServerSocket.bind(
               ip,
               NetworkConstants.port,
             );
             break;
           } catch (e) {
-            print(e);
             addressTry++;
           }
         } while (addressTry <= 255);
@@ -56,16 +52,13 @@ class ServerConnectionSocket extends ConnectionSocket {
       server.handleError((error) {
         onServerClosed();
       });
-      print("Server started at ${server.address.address}");
       return server.address.address;
     } catch (e) {
-      print(e);
       return null;
     }
   }
 
   void handleConnection(Socket client) {
-    print("Client connected ${client.remoteAddress.address}");
     if (this.client == null) {
       onClientConnected();
       this.client = client;

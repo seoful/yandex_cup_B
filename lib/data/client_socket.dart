@@ -16,7 +16,6 @@ class ClientConnectionSocket extends ConnectionSocket {
   Future<String?> create() async {
     try {
       socket = await Socket.connect(ip, NetworkConstants.port);
-      print("Connected to server: ${socket.remoteAddress}");
 
       socket.listen(
         super.onData,

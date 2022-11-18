@@ -30,14 +30,12 @@ class ClientConnectionManager extends RadioManager {
 
 final clientConnectionManagerProvider =
     Provider<ClientConnectionManager>((ref) {
-  print("Creating client manager");
   final manager = ClientConnectionManager(
     ref.read(soundManagerProvider),
     ref.read(audioStateProvider.notifier),
     ref.read(clientConnectionStateProvider.notifier),
   );
   ref.onDispose(() {
-    print("dispose");
     manager.socket?.close();
     ref.invalidate(soundManagerProvider);
   });

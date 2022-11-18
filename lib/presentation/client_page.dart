@@ -32,7 +32,6 @@ class ClientPage extends HookConsumerWidget {
 
     return WillPopScope(
       onWillPop: () {
-        print("leaving");
         ref.invalidate(clientConnectionManagerProvider);
         return Future.value(true);
       },

@@ -12,7 +12,6 @@ class SoundManager {
   Future<void> initSound() async {
     await recorder.openRecorder();
     await player.openPlayer();
-    print("opened");
   }
 
   Future<void> startPlayer() async {
@@ -53,7 +52,6 @@ class SoundManager {
   Future<void> dispose() async {
     await recorder.closeRecorder();
     await player.closePlayer();
-    print("closed");
   }
 }
 
